@@ -1,12 +1,9 @@
-import java.util.Scanner;
 
-class add {
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.println("Hiii! It's Ruchi");
-        System.out.println("Hello, This is Apurva");
-        System.out.println("Hello, This is Pranoti");
-        System.out.println("Hello, This is Shradha");
+public class add {
+     public int addNumbers(int x, int y) {
+        int sum = 0;
+        sum = x + y;
+        System.out.println("Sum of "+x + "&"+y+" = "+sum);
+        return sum;
     }
 }
