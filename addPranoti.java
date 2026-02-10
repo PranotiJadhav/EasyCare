@@ -4,7 +4,7 @@ public class addPranoti
     {
         int sum = 0;
         sum = x + y;
-        System.out.println("Sum :" + sum);
+        System.out.println("Sum of two numbers:" + sum);
         return sum;
     }
 }
