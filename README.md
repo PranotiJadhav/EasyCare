@@ -59,7 +59,7 @@ This module performs the following functions:
 ```
 EasyCare/
 │
-├── DoctorScheduling.java
+├── doctorScheduling.java
 ├── README.md
 ```
 
@@ -70,13 +70,13 @@ EasyCare/
 ### Step 1: Compile the program
 
 ```
-javac DoctorScheduling.java
+javac doctorScheduling.java
 ```
 
 ### Step 2: Run the program
 
 ```
-java DoctorScheduling
+java doctorScheduling
 ```
 
 ---
@@ -137,7 +137,3 @@ In a full DevOps setup, this module can be converted into a **REST API service**
 
 ---
 
-## Author
-
-**Pranoti Jadhav**
-Doctor Scheduling Module – EasyCare Project
