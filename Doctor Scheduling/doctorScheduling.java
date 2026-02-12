@@ -15,8 +15,7 @@ class Doctor
     }
 }
 
-class Appointment 
-{
+class Appointment {
     int appointmentId;
     String patientId;
     int doctorId;
@@ -32,7 +31,8 @@ class Appointment
     }
 }
 
-public class doctorScheduling {
+public class doctorScheduling 
+{
 
     static Scanner sc = new Scanner(System.in);
     static List<Doctor> doctors = new ArrayList<>();
