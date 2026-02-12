@@ -55,11 +55,13 @@ public class PharmacyService {
     }
 
     // Delete Medicine
-    public void deleteMedicine(int id) {
+    public boolean deleteMedicine(int id) {
         if (medicineMap.remove(id) != null) {
             System.out.println("Medicine deleted successfully.");
+            return true;
         } else {
             System.out.println("Medicine not found.");
+            return false;
         }
     }
 }
