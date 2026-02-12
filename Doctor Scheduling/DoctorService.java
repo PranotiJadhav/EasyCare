@@ -16,6 +16,7 @@ public class DoctorService {
 
     public List<Doctor> getDoctors() {
         return doctors;
+        
     }
 
     // Assign doctor
