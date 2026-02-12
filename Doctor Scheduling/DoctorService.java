@@ -1,6 +1,7 @@
 import java.util.*;
 
-public class DoctorService {
+public class DoctorService 
+{
 
     private List<Doctor> doctors = new ArrayList<>();
     private List<Appointment> appointments = new ArrayList<>();
