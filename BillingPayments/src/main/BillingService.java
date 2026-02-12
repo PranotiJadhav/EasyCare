@@ -1,4 +1,4 @@
-package BillingPayments.src.main.java.com.hospital;
+package BillingPayments.src.main;
 import java.util.HashMap;
 import java.util.Map;
 
