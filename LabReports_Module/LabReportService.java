@@ -1,3 +1,5 @@
+
+package LabReports_Module;
 import java.util.List;
 
 public class LabReportService {

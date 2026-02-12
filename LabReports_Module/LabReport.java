@@ -1,3 +1,4 @@
+package LabReports_Module;
 import java.time.LocalDate;
 
 public class LabReport {
@@ -7,7 +8,7 @@ public class LabReport {
     private String testType;
     private String result;
     private LocalDate reportDate;
-    private String status; // PENDING, COMPLETED
+    private String status; 
 
     public LabReport(String reportId, String patientName, String testType,
                      String result, LocalDate reportDate, String status) {

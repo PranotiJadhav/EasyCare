@@ -1,3 +1,4 @@
+package LabReports_Module;
 import java.util.*;
 
 public class LabReportRepository {
