@@ -45,60 +45,7 @@ public class PharmacyServiceTest {
     }
 
     @Test
-    void testDeleteMedicine() {
-        assertEquals(true,service.deleteMedicine(1));
+    public void testDeleteMedicine() {
+        assertEquals(true, service.deleteMedicine(1));
     }
-
-
-
-
-
-
-
-
-    // @BeforeEach
-    // public void setup() {
-    //     service = new PharmacyService();
-    //     service.addMedicine(new Medicine(1, "Paracetamol", 10.0, 100));
-    // }
-
-    // @Test
-    // public void testAddMedicine() {
-    //     assertDoesNotThrow(() ->
-    //             service.addMedicine(new Medicine(2, "Cough Syrup", 80.0, 50))
-    //     );
-    // }
-
-    // @Test
-    // public void testPrescribeMedicineSuccess() throws Exception {
-    //     double cost = service.prescribeMedicine(1, 5);
-    //     assertEquals(50.0, cost);
-    // }
-
-    // @Test
-    // void testPrescribeMedicineInsufficientStock() {
-    //     assertThrows(InsufficientStockException.class, () -> {
-    //         service.prescribeMedicine(1, 500);
-    //     });
-    // }
-
-    // @Test
-    // void testUpdateStock() {
-    //     service.updateStock(1, 200);
-    //     double cost = 0;
-
-    //     try {
-    //         cost = service.prescribeMedicine(1, 100);
-    //     } catch (Exception ignored) {}
-
-    //     assertEquals(1000.0, cost);
-    // }
-
-    // @Test
-    // void testDeleteMedicine() {
-    //     service.deleteMedicine(1);
-    //     assertThrows(InsufficientStockException.class, () -> {
-    //         service.prescribeMedicine(1, 1);
-    //     });
-    // }
 }
