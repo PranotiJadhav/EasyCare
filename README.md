@@ -5,7 +5,7 @@
 The Doctor Scheduling module is a part of the **EasyCare – Smart Hospital Management System**.
 This module manages doctor availability and assigns doctors to patients based on available time slots.
 
-It is a **console-based Java application** that simulates real-world doctor appointment management without using a database or frontend.
+It is a **console-based Java application** with a separate service layer and **JUnit 5 unit testing**, designed following basic DevOps and modular development practices.
 
 ---
 
@@ -19,29 +19,28 @@ It is a **console-based Java application** that simulates real-world doctor appo
 * View all doctors and their schedules
 * View all appointments
 * Search appointments by Patient ID
+* Unit testing using **JUnit 5**
 
 ---
 
 ## Module Responsibilities
 
-This module performs the following functions:
+### 1. Doctor Management
 
-1. Doctor Management
+* Add doctor details
+* Store specialization
+* Maintain available time slots
 
-   * Add doctor details
-   * Store specialization
-   * Maintain available time slots
+### 2. Appointment Scheduling
 
-2. Appointment Scheduling
+* Assign doctor to patient
+* Allocate time slot
+* Remove slot after booking
 
-   * Assign doctor to patient
-   * Allocate time slot
-   * Remove slot after booking
+### 3. Schedule Tracking
 
-3. Schedule Tracking
-
-   * View all appointments
-   * Search patient appointment details
+* View all appointments
+* Search patient appointment details
 
 ---
 
@@ -50,33 +49,71 @@ This module performs the following functions:
 * Java (Core Java)
 * Console-based interface
 * ArrayList for in-memory data storage
+* JUnit 5 for unit testing
 * Git & GitHub for version control
 
 ---
 
-## File Structure
+## Project Structure
 
 ```
 EasyCare/
 │
-├── doctorScheduling.java
-├── README.md
+└── DoctorScheduling/
+    │
+    ├── doctorScheduling.java       # Console UI
+    ├── DoctorService.java          # Business logic layer
+    ├── DoctorServiceTest.java      # JUnit 5 test cases
+    ├── Doctor.class
+    ├── Appointment.class
+    └── other compiled class files
+```
+
+**Package Name:** `DoctorScheduling`
+
+---
+
+## How to Run the Application
+
+### Step 1: Navigate to project root
+
+```
+cd EasyCare
+```
+
+### Step 2: Compile
+
+```
+javac DoctorScheduling/*.java
+```
+
+### Step 3: Run
+
+```
+java DoctorScheduling.doctorScheduling
 ```
 
 ---
 
-## How to Run
+## Running Unit Tests (JUnit 5)
 
-### Step 1: Compile the program
-
-```
-javac doctorScheduling.java
-```
-
-### Step 2: Run the program
+### Step 1: Compile with JUnit classpath
 
 ```
-java doctorScheduling
+javac -cp .:junit-platform-console-standalone-1.10.0.jar DoctorScheduling/*.java
+```
+
+### Step 2: Execute tests
+
+```
+java -jar junit-platform-console-standalone-1.10.0.jar -cp . --scan-classpath
+```
+
+Expected output:
+
+```
+Test run finished
+[ 7 tests successful ]
 ```
 
 ---
@@ -101,17 +138,17 @@ java doctorScheduling
 
    * Name: Dr. Sharma
    * Specialization: General Physician
-   * Slots: 10AM-11AM, 11AM-12PM
+   * Slots: 10AM–11AM, 11AM–12PM
 
 2. Assign Doctor
 
    * Patient ID: P1023
    * Doctor ID: 1
-   * Slot: 10AM-11AM
+   * Slot: 10AM–11AM
 
 3. View Appointment
 
-   * Patient P1023 → Dr. Sharma at 10AM-11AM
+   * Patient P1023 → Dr. Sharma at 10AM–11AM
 
 ---
 
@@ -120,10 +157,19 @@ java doctorScheduling
 This module interacts with:
 
 * **Patient Module** – Uses Patient ID
-* **Billing Module** – Provides doctor consultation details
+* **Billing Module** – Provides consultation details
 * **Lab Module** – Doctor can refer tests (future scope)
 
-In a full DevOps setup, this module can be converted into a **REST API service** and deployed as a microservice.
+The business logic is implemented in `DoctorService`, making the module ready for future API or microservice integration.
+
+---
+
+## DevOps Readiness
+
+* Modular structure (UI + Service layer)
+* Automated unit testing with JUnit 5
+* Can be integrated into CI/CD pipelines (Jenkins)
+* Ready for containerization and microservice conversion
 
 ---
 
@@ -132,8 +178,5 @@ In a full DevOps setup, this module can be converted into a **REST API service**
 * Database integration (MySQL)
 * REST API using Spring Boot
 * Docker containerization
-* CI/CD using Jenkins
+* CI/CD pipeline using Jenkins
 * Integration with other hospital modules
-
----
-

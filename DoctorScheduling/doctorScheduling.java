@@ -1,3 +1,4 @@
+package DoctorScheduling;
 import java.util.*;
 
 class Doctor {
