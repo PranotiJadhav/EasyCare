@@ -1,4 +1,4 @@
-package com.hospital.patient;
+package PatientRegistration.src.main.java.com.hospital.patient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,3 +47,4 @@ public class PatientService {
         return patients.removeIf(p -> p.getId().equals(id));
     }
 }
+

@@ -1,6 +1,6 @@
-package com.hospital.patient;
-import org.junit.*;
+package PatientRegistration.src.main.java.com.hospital.patient;
 
+import org.junit.*;
 
 import java.util.Optional;
 
@@ -52,10 +52,9 @@ public class PatientServiceTest {
         Assert.assertTrue(result.isPresent());
         Assert.assertEquals("Sneha", result.get().getName());
     }
-
     @Test
     public void testRemovePatient() {
-        Patient p = new Patient("P05", "Rohan", 40, "5555555555");
+        Patient p = new Patient("P05", "Shreya", 18, "5555555555");
         service.registerPatient(p);
 
         boolean removed = service.removePatient("P05");

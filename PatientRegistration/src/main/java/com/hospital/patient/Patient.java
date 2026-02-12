@@ -1,4 +1,4 @@
-package com.hospital.patient;
+package PatientRegistration.src.main.java.com.hospital.patient;
 
 public class Patient {
 

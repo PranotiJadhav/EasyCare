@@ -1,4 +1,4 @@
-package com.hospital.patient;
+package PatientRegistration.src.main.java.com.hospital.patient;
 
 import java.util.Optional;
 import java.util.Scanner;
