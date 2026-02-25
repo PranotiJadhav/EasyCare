@@ -1,4 +1,8 @@
+package test;
 import org.junit.jupiter.api.Test;
+
+import src.main.InsufficientStockException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InsufficientStockExceptionTest {

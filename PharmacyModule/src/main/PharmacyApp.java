@@ -1,3 +1,5 @@
+package src.main;
+
 public class PharmacyApp {
 
     public static void main(String[] args) {
