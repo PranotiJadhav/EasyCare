@@ -1,51 +1,61 @@
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PharmacyServiceTest {
+class PharmacyServiceTest {
 
-    PharmacyService service;
+    private PharmacyService service;
 
     @BeforeEach
-    public void setup() {
+    void setUp() {
         service = new PharmacyService();
         service.addMedicine(new Medicine(1, "Paracetamol", 10.0, 100));
+        service.addMedicine(new Medicine(2, "Cough Syrup", 80.0, 50));
     }
 
     @Test
-    public void testAddMedicine() {
-        assertDoesNotThrow(() -> 
-            service.addMedicine(new Medicine(2, "Cough Syrup", 80.0, 50)));
+    void testServiceNotNull() {
+        assertNotNull(service);
     }
 
     @Test
-    public void testPresribeMedicine() throws InsufficientStockException {
+    void testPrescribeMedicineSuccess() throws Exception {
         double cost = service.prescribeMedicine(1, 5);
-        assertEquals(50,cost);
+        assertEquals(50.0, cost);
+        assertTrue(cost > 0);
     }
 
     @Test
-    public void testPrescribeMedicineInsufficientStock() {
+    void testPrescribeMedicineFailure() {
         assertThrows(InsufficientStockException.class, () -> {
             service.prescribeMedicine(1, 500);
         });
     }
 
     @Test
-    public void testUpdateStock() {
+    void testUpdateStockAndPrescribe() throws Exception {
         service.updateStock(1, 200);
-        double cost = 0;
-
-        try {
-            cost = service.prescribeMedicine(1, 100);
-        } catch (Exception ignored) {}
-
+        double cost = service.prescribeMedicine(1, 100);
         assertEquals(1000.0, cost);
+        assertNotEquals(500.0, cost);
     }
 
     @Test
-    public void testDeleteMedicine() {
-        assertEquals(true, service.deleteMedicine(1));
+    void testDeleteMedicine() {
+
+        service.deleteMedicine(2);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.prescribeMedicine(2, 1);
+        });
+    }
+
+    @RepeatedTest(2)
+    void testRepeatedPrescription() throws Exception {
+        double cost = service.prescribeMedicine(1, 1);
+        assertEquals(10.0, cost);
+        assertTrue(cost == 10.0);
     }
 }

@@ -4,10 +4,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class InsufficientStockExceptionTest {
 
     @Test
-    void testExceptionMessage() {
+    void testExceptionCreation() {
         InsufficientStockException exception =
-                new InsufficientStockException("Stock not available");
+                new InsufficientStockException("Not enough stock");
 
-        assertEquals("Stock not available", exception.getMessage());
+        assertNotNull(exception);
+        assertEquals("Not enough stock", exception.getMessage());
+    }
+
+    @Test
+    void testExceptionMessageNotEqual() {
+        InsufficientStockException exception =
+                new InsufficientStockException("Stock issue");
+
+        assertNotEquals("Different message", exception.getMessage());
+        assertTrue(exception.getMessage().contains("Stock"));
+        assertFalse(exception.getMessage().isEmpty());
     }
 }

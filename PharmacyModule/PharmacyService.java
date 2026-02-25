@@ -39,8 +39,7 @@ public class PharmacyService {
         Medicine medicine = medicineMap.get(id);
 
         if (medicine == null) {
-            System.out.println("Medicine not found.");
-            return 0;
+            throw new IllegalArgumentException("Medicine not found");
         }
 
         if (medicine.getStock() < quantity) {
