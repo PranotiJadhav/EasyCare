@@ -1,80 +1,100 @@
 package BillingPayments.src.test;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import BillingPayments.src.main.BillingService;
+import BillingPayments.src.main.Invoice;
+import BillingPayments.src.main.Payment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BillingServiceTest {
+class BillingServiceTest {
 
     private BillingService billingService;
+    private Invoice invoice;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
+        System.out.println("DEBUG: Initializing BillingService...");
         billingService = new BillingService();
+        invoice = billingService.generateInvoice(500, 200, 300);
+        System.out.println("DEBUG: Invoice Created with ID = " + invoice.getInvoiceId());
     }
 
     @Test
-    void testCreateBillSuccessfully() {
-        System.out.println("Running testCreateBillSuccessfully");
-        billingService.createBill("P101");
-        System.out.println("Created bill for P101");
-        assertNotNull(billingService.getBill("P101"));
+    void testInvoiceGeneration() {
+        System.out.println("DEBUG: Testing invoice generation...");
+        assertNotNull(invoice);
+        assertEquals(1000, invoice.getTotalAmount());
+        assertEquals(1, billingService.getTotalInvoices());
     }
 
     @Test
-    void testCreateDuplicateBill() {
-        System.out.println("Running testCreateDuplicateBill");
-        billingService.createBill("P101");
-
-        System.out.println("Attempting to create duplicate bill for P101 (expect IllegalArgumentException)");
-        assertThrows(IllegalArgumentException.class, () -> {
-            billingService.createBill("P101");
-        });
+    void testGetInvoice() {
+        System.out.println("DEBUG: Fetching invoice by ID...");
+        Invoice fetched = billingService.getInvoice(invoice.getInvoiceId());
+        assertEquals(invoice.getInvoiceId(), fetched.getInvoiceId());
     }
 
     @Test
-    void testAddChargeSuccessfully() {
-        System.out.println("Running testAddChargeSuccessfully");
-        billingService.createBill("P101");
-        billingService.addCharge("P101", 500);
+    void testSuccessfulPayment() {
+        System.out.println("DEBUG: Testing successful payment...");
+        Payment payment = billingService.makePayment(invoice.getInvoiceId(), 1000);
 
-        double total = billingService.getTotal("P101");
-        System.out.println("Total after adding charge: " + total);
-        assertEquals(500, total);
+        System.out.println("DEBUG: Payment Status = " + payment.getStatus());
+
+        assertAll(
+                () -> assertEquals("SUCCESS", payment.getStatus()),
+                () -> assertTrue(invoice.isPaid()),
+                () -> assertEquals(1, billingService.getTotalPayments()));
     }
 
     @Test
-    void testAddNegativeCharge() {
-        System.out.println("Running testAddNegativeCharge");
-        billingService.createBill("P101");
+    void testFailedPayment_LessAmount() {
+        System.out.println("DEBUG: Testing failed payment (less amount)...");
+        Payment payment = billingService.makePayment(invoice.getInvoiceId(), 500);
 
-        System.out.println("Attempting to add negative charge to P101 (expect IllegalArgumentException)");
-        assertThrows(IllegalArgumentException.class, () -> {
-            billingService.addCharge("P101", -200);
-        });
+        System.out.println("DEBUG: Payment Status = " + payment.getStatus());
+
+        assertEquals("FAILED", payment.getStatus());
+        assertFalse(invoice.isPaid());
     }
 
     @Test
-    void testBillNotFoundWhileAddingCharge() {
-        System.out.println("Running testBillNotFoundWhileAddingCharge");
-        System.out.println("Attempting to add charge to non-existing bill P999 (expect RuntimeException)");
-        assertThrows(RuntimeException.class, () -> {
-            billingService.addCharge("P999", 500);
-        });
+    void testFailedPayment_ExtraAmount() {
+        System.out.println("DEBUG: Testing failed payment (extra amount)...");
+        Payment payment = billingService.makePayment(invoice.getInvoiceId(), 1500);
+
+        System.out.println("DEBUG: Payment Status = " + payment.getStatus());
+
+        assertEquals("FAILED", payment.getStatus());
     }
 
     @Test
-    void testCalculateTotalMultipleCharges() {
-        System.out.println("Running testCalculateTotalMultipleCharges");
-        billingService.createBill("P101");
-        billingService.addCharge("P101", 500);
-        billingService.addCharge("P101", 300);
+    void testPaymentForInvalidInvoice() {
+        System.out.println("DEBUG: Testing invalid invoice payment...");
+        assertThrows(IllegalArgumentException.class, () -> billingService.makePayment("INVALID_ID", 1000));
+    }
 
-        double total = billingService.getTotal("P101");
-        System.out.println("Total after multiple charges: " + total);
-        assertEquals(800, total);
+    @Test
+    void testZeroPaymentAmount() {
+        System.out.println("DEBUG: Testing zero payment exception...");
+        assertThrows(IllegalArgumentException.class, () -> billingService.makePayment(invoice.getInvoiceId(), 0));
+    }
+
+    @Test
+    void testNullInvoiceFetch() {
+        System.out.println("DEBUG: Fetching non-existing invoice...");
+        assertNull(billingService.getInvoice("WRONG_ID"));
+    }
+
+    @RepeatedTest(3)
+    void testMultipleInvoiceCreation() {
+        System.out.println("DEBUG: Repeated invoice creation test...");
+        billingService.generateInvoice(100, 100, 100);
+        System.out.println("DEBUG: Total invoices now = " + billingService.getTotalInvoices());
+        assertTrue(billingService.getTotalInvoices() >= 1);
     }
 }
