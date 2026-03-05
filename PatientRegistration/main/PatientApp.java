@@ -5,82 +5,103 @@ import java.util.Scanner;
 
 public class PatientApp {
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
-PatientService service = new PatientService();
-Scanner scanner = new Scanner(System.in);
+        PatientService service = new PatientService();
+        Scanner scanner = new Scanner(System.in);
 
-while (true) {
-System.out.println("\n--- Patient Registration Menu ---");
-System.out.println("1. Register Patient");
-System.out.println("2. View Patient");
-System.out.println("3. Remove Patient");
-System.out.println("4. Total Patients");
-System.out.println("5. Exit");
-System.out.print("Enter choice: ");
+        while (true) {
 
-int choice = scanner.nextInt();
-scanner.nextLine(); // consume newline
+            System.out.println("\n--- Patient System ---");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. View Profile");
+            System.out.println("4. Remove Account");
+            System.out.println("5. Total Patients");
+            System.out.println("6. Exit");
+            System.out.print("Enter choice: ");
 
-switch (choice) {
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-case 1:
-System.out.print("Enter ID: ");
-String id = scanner.nextLine();
+            switch (choice) {
 
-System.out.print("Enter Name: ");
-String name = scanner.nextLine();
+                case 1: // REGISTER
+                    try {
+                        System.out.print("Enter ID: ");
+                        String id = scanner.nextLine();
 
-System.out.print("Enter Age: ");
-int age = scanner.nextInt();
-scanner.nextLine();
+                        System.out.print("Enter Name: ");
+                        String name = scanner.nextLine();
 
-System.out.print("Enter Contact: ");
-String contact = scanner.nextLine();
+                        System.out.print("Enter Age: ");
+                        int age = scanner.nextInt();
+                        scanner.nextLine();
 
-try {
-service.registerPatient(new Patient(id, name, age, contact));
-System.out.println("Patient registered successfully!");
-} catch (IllegalArgumentException e) {
-System.out.println("Error: " + e.getMessage());
-}
-break;
+                        System.out.print("Enter Contact (10 digits): ");
+                        String contact = scanner.nextLine();
 
-case 2:
-System.out.print("Enter ID: ");
-String searchId = scanner.nextLine();
-Optional<Patient> patient = service.getPatientById(searchId);
+                        System.out.print("Create Password: ");
+                        String password = scanner.nextLine();
 
-if (patient.isPresent()) {
-System.out.println(patient.get());
-} else {
-System.out.println("Patient not found.");
-}
-break;
+                        service.registerPatient(
+                                new Patient(id, name, age, contact, password));
 
-case 3:
-System.out.print("Enter ID: ");
-String removeId = scanner.nextLine();
+                        System.out.println("Registration Successful!");
 
-if (service.removePatient(removeId)) {
-System.out.println("Patient removed successfully.");
-} else {
-System.out.println("Patient not found.");
-}
-break;
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
 
-case 4:
-System.out.println("Total patients: " + service.getTotalPatients());
-break;
+                case 2: // LOGIN
+                    System.out.print("Enter ID: ");
+                    String loginId = scanner.nextLine();
 
-case 5:
-System.out.println("Exiting...");
-scanner.close();
-return;
+                    System.out.print("Enter Password: ");
+                    String loginPass = scanner.nextLine();
 
-default:
-System.out.println("Invalid choice.");
-}
-}
-}
+                    if (service.login(loginId, loginPass))
+                        System.out.println("Login Successful!");
+                    else
+                        System.out.println("Invalid Credentials!");
+                    break;
+
+                case 3: // VIEW PROFILE
+                    System.out.print("Enter ID: ");
+                    String searchId = scanner.nextLine();
+
+                    Optional<Patient> patient = service.getPatientById(searchId);
+
+                    if (patient.isPresent())
+                        System.out.println(patient.get());
+                    else
+                        System.out.println("Patient not found.");
+                    break;
+
+                case 4: // REMOVE
+                    System.out.print("Enter ID: ");
+                    String removeId = scanner.nextLine();
+
+                    if (service.removePatient(removeId))
+                        System.out.println("Account removed.");
+                    else
+                        System.out.println("Patient not found.");
+                    break;
+
+                case 5:
+                    System.out.println("Total patients: "
+                            + service.getTotalPatients());
+                    break;
+
+                case 6:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
+    }
 }

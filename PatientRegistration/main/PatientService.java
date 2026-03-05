@@ -6,44 +6,52 @@ import java.util.Optional;
 
 public class PatientService {
 
-private List<Patient> patients = new ArrayList<>();
+    private List<Patient> patients = new ArrayList<>();
 
-// Register patient
-public boolean registerPatient(Patient patient) {
+    // REGISTER
+    public boolean registerPatient(Patient patient) {
 
-if (patient == null) {
-throw new IllegalArgumentException("Patient cannot be null");
-}
+        if (patient == null)
+            throw new IllegalArgumentException("Patient cannot be null");
 
-if (patient.getAge() <= 0) {
-throw new IllegalArgumentException("Invalid age");
-}
+        for (Patient p : patients) {
+            if (p.getId().equals(patient.getId())) {
+                throw new IllegalArgumentException("Patient ID already exists");
+            }
+        }
 
-// Check duplicate ID
-for (Patient p : patients) {
-if (p.getId().equals(patient.getId())) {
-throw new IllegalArgumentException("Patient ID already exists");
-}
-}
+        patients.add(patient);
+        return true;
+    }
 
-patients.add(patient);
-return true;
-}
+    // LOGIN
+    public boolean login(String id, String password) {
 
-// Get patient by ID
-public Optional<Patient> getPatientById(String id) {
-return patients.stream()
-.filter(p -> p.getId().equals(id))
-.findFirst();
-}
+        Optional<Patient> patient = patients.stream()
+                .filter(p -> p.getId().equals(id)
+                        && p.getPassword().equals(password))
+                .findFirst();
 
-// Get total patient count
-public int getTotalPatients() {
-return patients.size();
-}
+        return patient.isPresent();
+    }
 
-// Remove patient
-public boolean removePatient(String id) {
-return patients.removeIf(p -> p.getId().equals(id));
-}
+    // VIEW
+    public Optional<Patient> getPatientById(String id) {
+        return patients.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst();
+    }
+
+    // REMOVE
+    public boolean removePatient(String id) {
+        return patients.removeIf(p -> p.getId().equals(id));
+    }
+
+    public int getTotalPatients() {
+        return patients.size();
+    }
+
+    public void clearAll() {
+        patients.clear();
+    }
 }
