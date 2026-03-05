@@ -1,4 +1,4 @@
-package BillingPayments.src.main;
+package billingpayments;
 
 import java.util.HashMap;
 import java.util.Map;

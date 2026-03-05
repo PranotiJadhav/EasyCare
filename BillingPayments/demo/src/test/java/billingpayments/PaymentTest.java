@@ -1,9 +1,7 @@
-package BillingPayments.src.test;
+package billingpayments;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import BillingPayments.src.main.Payment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
