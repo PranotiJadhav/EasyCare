@@ -1,4 +1,4 @@
-package src.main;
+package firstmaven;
 public class InsufficientStockException extends Exception {
 
     public InsufficientStockException(String message) {

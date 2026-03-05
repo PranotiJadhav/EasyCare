@@ -1,4 +1,4 @@
-package src.main;
+package firstmaven;
 import java.util.*;
 
 public class PharmacyService {

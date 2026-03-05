@@ -1,4 +1,7 @@
-package src.main;
+package firstmaven;
+
+// import src.main.java.firstmaven.Medicine;
+// import src.main.java.firstmaven.PharmacyService;
 
 public class PharmacyApp {
 
