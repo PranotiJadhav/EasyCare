@@ -1,5 +1,5 @@
 
-package LabReports_Module;
+package firstmaven;
 import java.util.List;
 
 public class LabReportService {

@@ -1,4 +1,4 @@
-package LabReports_Module;
+package firstmaven;
 import java.time.LocalDate;
 
 public class LabReport {

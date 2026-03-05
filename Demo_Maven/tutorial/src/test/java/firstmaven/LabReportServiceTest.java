@@ -1,7 +1,12 @@
-package LabReports_Module;
+package firstmaven;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import firstmaven.LabReport;
+import firstmaven.LabReportNotFoundException;
+import firstmaven.LabReportRepository;
+import firstmaven.LabReportService;
 
 import java.time.LocalDate;
 
