@@ -1,4 +1,4 @@
-package DoctorScheduling;
+package tutorial;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

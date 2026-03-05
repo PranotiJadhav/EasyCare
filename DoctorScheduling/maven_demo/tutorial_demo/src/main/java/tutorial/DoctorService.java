@@ -1,4 +1,4 @@
-package DoctorScheduling;
+package tutorial;
 
 import java.util.*;
 
